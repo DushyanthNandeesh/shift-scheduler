@@ -1,0 +1,92 @@
+========================================================================
+================== EMPLOYEE SHIFT SCHEDULER (Python) ===================
+========================================================================
+
+EMPLOYEE PREFERENCES (ranked, M=Morning A=Afternoon E=Evening)
+------------------------------------------------------------------------
+Employee  Mon     Tue     Wed     Thu     Fri     Sat     Sun     
+Alice     M>A     M>A     M       -       M       -       -       
+Bob       M>E     -       A>M     -       E       E       -       
+Carmen    M       -       E>A     E       -       M       -       
+David     M>A>E   E       -       A       A       A>M     A       
+Emma      A       A>M     M>A     -       M>A     -       M       
+Farid     E       -       E       E>M     -       E       E       
+Grace     A>M     M       -       M       A>E     -       -       
+Hiro      E>A     -       A       E>A     E       -       -       
+Isabel    A       M>E     -       -       -       A       -       
+Jamal     E>M     A       E>A     M>E     -       A>E     -       
+Kofi      -       E       M>A     A       M>E     -       -       
+Lena      -       -       -       E>A     -       A       E       
+
+CONFLICTS AND DECISIONS
+------------------------------------------------------------------------
+  Mon: CONFLICT - Carmen: Morning is full -> reassigned to Evening
+  Mon: CONFLICT - every shift is full for Farid -> moved to Tuesday
+  Thu: CONFLICT - Hiro's 1st choice (Evening) is full -> assigned 2nd choice Afternoon
+  Sat: CONFLICT - David's 1st choice (Afternoon) is full -> assigned 2nd choice Morning
+  Sun: David's request declined - already scheduled 5 days
+  Sun: STAFFING - Morning had fewer than 2; randomly added Isabel
+  Sun: STAFFING - Afternoon had fewer than 2; randomly added Alice
+  Sun: STAFFING - Afternoon had fewer than 2; randomly added Kofi
+
+======================== FINAL WEEKLY SCHEDULE =========================
+
+MONDAY
+  Morning   | David, Bob, Alice
+  Afternoon | Isabel, Emma, Grace
+  Evening   | Hiro, Jamal, Carmen (reassigned)
+
+TUESDAY
+  Morning   | Grace, Alice, Isabel
+  Afternoon | Emma, Jamal
+  Evening   | Farid (moved from Mon), Kofi, David
+
+WEDNESDAY
+  Morning   | Kofi, Emma, Alice
+  Afternoon | Hiro, Bob
+  Evening   | Carmen, Farid, Jamal
+
+THURSDAY
+  Morning   | Grace, Jamal
+  Afternoon | David, Hiro (2nd choice), Kofi
+  Evening   | Lena, Farid, Carmen
+
+FRIDAY
+  Morning   | Emma, Kofi, Alice
+  Afternoon | Grace, David
+  Evening   | Bob, Hiro
+
+SATURDAY
+  Morning   | Carmen, David (2nd choice)
+  Afternoon | Lena, Isabel, Jamal
+  Evening   | Farid, Bob
+
+SUNDAY
+  Morning   | Emma, Isabel (random)
+  Afternoon | Alice (random), Kofi (random)
+  Evening   | Lena, Farid
+
+========================================================================
+
+SCHEDULE GRID (M=Morning A=Afternoon E=Evening, - = off)
+------------------------------------------------------------------------
+Employee  Mon   Tue   Wed   Thu   Fri   Sat   Sun   Days
+Alice     M     M     M     -     M     -     A     5
+Bob       M     -     A     -     E     E     -     4
+Carmen    E     -     E     E     -     M     -     4
+David     M     E     -     A     A     M     -     5
+Emma      A     A     M     -     M     -     M     5
+Farid     -     E     E     E     -     E     E     5
+Grace     A     M     -     M     A     -     -     4
+Hiro      E     -     A     A     E     -     -     4
+Isabel    A     M     -     -     -     A     M     4
+Jamal     E     A     E     M     -     A     -     5
+Kofi      -     E     M     A     M     -     A     5
+Lena      -     -     -     E     -     A     E     3
+
+RULE CHECK
+------------------------------------------------------------------------
+  [PASS] No employee works more than one shift per day
+  [PASS] No employee works more than 5 days
+  [PASS] Every shift has at least 2 employees
+  [PASS] No shift exceeds its capacity of 3
